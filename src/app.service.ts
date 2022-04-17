@@ -15,7 +15,7 @@ export class AppService {
   ) {}
   private readonly logger = new Logger(AppService.name);
 
-  @Cron('* 2 * * * *')
+  @Cron('0 */2 * * *')
   async handleCron() {
     this.logger.debug('Call API weather now');
     console.log();
