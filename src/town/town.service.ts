@@ -13,7 +13,7 @@ export class TownService {
     }
 
     async find(id: string): Promise<TownEntity> {
-        return await this.townRepository.findOne(id);
+        return await this.townRepository.findOneOrFail(id);
     }
 
     async findAll(): Promise<TownEntity[]> {

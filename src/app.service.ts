@@ -14,14 +14,17 @@ export class AppService {
     private readonly weatherService: WeatherService,
   ) {}
   private readonly logger = new Logger(AppService.name);
-  
+
   @Cron('* 2 * * * *')
   async handleCron() {
     this.logger.debug('Call API weather now');
+    console.log();
 
     //Get town
     let town = await this.townService.find('1');
+
     let apikey = process.env.API_KEY;
+
     //Get data from API openweathermap
     let url =  'https://api.openweathermap.org/data/2.5/weather?lat='+town.lon+'&lon='+town.lat+'&appid='+apikey;
     let { data } = await firstValueFrom( this.httpService.get(url))
@@ -35,8 +38,5 @@ export class AppService {
     await this.weatherService.create(weather)
 
     this.logger.debug('Saved');
-
-    // this.weatherService.create(w)
-    this.logger.debug(weather);
   }
 }
